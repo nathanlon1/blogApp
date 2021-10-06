@@ -11,17 +11,24 @@
 				<div class="nav-left">
 						<h1><a href = "{%url 'home' %}"> Django Blog</a></h1>
 				</div>
-				<div class="nav-right">
-					<a href = "{% url 'post_new' %}">+ New Blog Post</a>
-				</div>
+				<aside>
+					<ul style="list-style-type:none;">
+						<li><a href = "{% url 'post_new' %}">+ New Blog Post</a></li>
+						
+						{% if user.is_authenticated %}
+							<li>Hi {{ user.username }}!</li>
+							<li><a href = "{% url 'logout' %}">Log out</a></li>
+						{% else %}
+							<li>You are not logged in.</li>
+							<li>
+								<a href ="{% url 'login' %}">Log In</a>
+
+								<a href ="{% url 'signup' %}">Sign Up</a>
+							</li>
+						{% endif %}
+					</ul>
+				</aside>
 			</header>
-			{% if user.is_authenticated %}
-				<p>Hi {{ user.username }}!</p>
-				<p><a href = "{% url 'logout' %}">Log out</a></p>
-			{% else %}
-				<p>You are not logged in.</p>
-				<a href ="{% url 'login' %}">Log In</a>
-			{% endif %}
 			
 			{% block content %}
 			{% endblock content %}

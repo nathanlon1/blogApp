@@ -1,10 +1,14 @@
 {% extends 'base.html' %}
 
 {% block content %}
-	<h2>Sign Up</h2>
-	<form method = "post">
-		{% csrf_token %}
-		{{ form.as_p }}
-		<button type = "submit">Sign Up</button>
-	</form>
+	{% if user.is_authenticated %}
+		<p>You are already signed in as {{ user.username }}.</p>
+	{% else %}
+		<h2>Sign Up</h2>
+		<form method = "post">
+			{% csrf_token %}
+			{{ form.as_p }}
+			<button type = "submit">Sign Up</button>
+		</form>
+	{% endif %}
 {% endblock content %}
